@@ -492,6 +492,18 @@ export async function setMistralApiKey(
   });
 }
 
+export async function setRdsecApiKey(
+  key: SecretInput,
+  agentDir?: string,
+  options?: ApiKeyStorageOptions,
+) {
+  upsertAuthProfile({
+    profileId: "rdsec:default",
+    credential: buildApiKeyCredential("rdsec", key, undefined, options),
+    agentDir: resolveAuthAgentDir(agentDir),
+  });
+}
+
 export async function setKilocodeApiKey(
   key: SecretInput,
   agentDir?: string,

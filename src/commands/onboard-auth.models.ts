@@ -224,3 +224,28 @@ export function buildKilocodeModelDefinition(): ModelDefinitionConfig {
     maxTokens: KILOCODE_DEFAULT_MAX_TOKENS,
   };
 }
+
+export const RDSEC_BASE_URL = "https://api.rdsec.trendmicro.com/prod/aiendpoint/v1";
+export const RDSEC_DEFAULT_MODEL_ID = "claude-4-sonnet";
+export const RDSEC_DEFAULT_MODEL_REF = `rdsec/${RDSEC_DEFAULT_MODEL_ID}`;
+export const RDSEC_DEFAULT_CONTEXT_WINDOW = 200000;
+export const RDSEC_DEFAULT_MAX_TOKENS = 8192;
+export const RDSEC_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+
+export function buildRdsecModelDefinition(): ModelDefinitionConfig {
+  return {
+    id: RDSEC_DEFAULT_MODEL_ID,
+    name: "Claude 4 Sonnet",
+    reasoning: false,
+    input: ["text"],
+    cost: RDSEC_DEFAULT_COST,
+    contextWindow: RDSEC_DEFAULT_CONTEXT_WINDOW,
+    maxTokens: RDSEC_DEFAULT_MAX_TOKENS,
+    compat: { supportsStore: false },
+  };
+}

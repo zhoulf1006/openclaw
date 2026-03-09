@@ -120,6 +120,12 @@ const AUTH_CHOICE_GROUP_DEFS: {
     choices: ["qianfan-api-key"],
   },
   {
+    value: "rdsec",
+    label: "RDSEC (Trend Micro)",
+    hint: "API key",
+    choices: ["rdsec-api-key"],
+  },
+  {
     value: "copilot",
     label: "Copilot",
     hint: "GitHub + local proxy",

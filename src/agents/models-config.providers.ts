@@ -206,6 +206,16 @@ const NVIDIA_DEFAULT_COST = {
   cacheWrite: 0,
 };
 
+const RDSEC_BASE_URL = "https://api.rdsec.trendmicro.com/prod/aiendpoint/v1";
+const RDSEC_DEFAULT_CONTEXT_WINDOW = 200000;
+const RDSEC_DEFAULT_MAX_TOKENS = 8192;
+const RDSEC_DEFAULT_COST = {
+  input: 0,
+  output: 0,
+  cacheRead: 0,
+  cacheWrite: 0,
+};
+
 const log = createSubsystemLogger("agents/model-providers");
 
 interface OllamaModel {
@@ -1061,6 +1071,55 @@ export function buildNvidiaProvider(): ProviderConfig {
   };
 }
 
+export function buildRdsecProvider(): ProviderConfig {
+  return {
+    baseUrl: RDSEC_BASE_URL,
+    api: "openai-completions",
+    models: [
+      {
+        id: "claude-4-sonnet",
+        name: "Claude 4 Sonnet",
+        reasoning: false,
+        input: ["text"],
+        cost: RDSEC_DEFAULT_COST,
+        contextWindow: RDSEC_DEFAULT_CONTEXT_WINDOW,
+        maxTokens: RDSEC_DEFAULT_MAX_TOKENS,
+        compat: { supportsStore: false },
+      },
+      {
+        id: "claude-4.6-opus",
+        name: "Claude 4.6 Opus",
+        reasoning: false,
+        input: ["text"],
+        cost: RDSEC_DEFAULT_COST,
+        contextWindow: RDSEC_DEFAULT_CONTEXT_WINDOW,
+        maxTokens: RDSEC_DEFAULT_MAX_TOKENS,
+        compat: { supportsStore: false },
+      },
+      {
+        id: "gpt-5.2",
+        name: "GPT 5.2",
+        reasoning: false,
+        input: ["text"],
+        cost: RDSEC_DEFAULT_COST,
+        contextWindow: RDSEC_DEFAULT_CONTEXT_WINDOW,
+        maxTokens: RDSEC_DEFAULT_MAX_TOKENS,
+        compat: { supportsStore: false },
+      },
+      {
+        id: "whisper-1",
+        name: "Whisper 1",
+        reasoning: false,
+        input: ["text"],
+        cost: RDSEC_DEFAULT_COST,
+        contextWindow: RDSEC_DEFAULT_CONTEXT_WINDOW,
+        maxTokens: RDSEC_DEFAULT_MAX_TOKENS,
+        compat: { supportsStore: false },
+      },
+    ],
+  };
+}
+
 export function buildKilocodeProvider(): ProviderConfig {
   return {
     baseUrl: KILOCODE_BASE_URL,
@@ -1293,6 +1352,11 @@ export async function resolveImplicitProviders(params: {
   const kilocodeKey = resolveProviderApiKey("kilocode").apiKey;
   if (kilocodeKey) {
     providers.kilocode = { ...(await buildKilocodeProviderWithDiscovery()), apiKey: kilocodeKey };
+  }
+
+  const rdsecKey = resolveProviderApiKey("rdsec").apiKey;
+  if (rdsecKey) {
+    providers.rdsec = { ...buildRdsecProvider(), apiKey: rdsecKey };
   }
 
   return providers;

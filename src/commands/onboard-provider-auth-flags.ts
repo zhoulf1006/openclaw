@@ -25,6 +25,7 @@ type OnboardProviderAuthOptionKey = keyof Pick<
   | "qianfanApiKey"
   | "volcengineApiKey"
   | "byteplusApiKey"
+  | "rdsecApiKey"
 >;
 
 export type OnboardProviderAuthFlag = {
@@ -197,5 +198,12 @@ export const ONBOARD_PROVIDER_AUTH_FLAGS: ReadonlyArray<OnboardProviderAuthFlag>
     cliFlag: "--byteplus-api-key",
     cliOption: "--byteplus-api-key <key>",
     description: "BytePlus API key",
+  },
+  {
+    optionKey: "rdsecApiKey",
+    authChoice: "rdsec-api-key",
+    cliFlag: "--rdsec-api-key",
+    cliOption: "--rdsec-api-key <key>",
+    description: "RDSEC (Trend Micro) API key",
   },
 ];

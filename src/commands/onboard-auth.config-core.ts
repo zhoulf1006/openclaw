@@ -62,6 +62,7 @@ import {
 } from "./onboard-auth.config-shared.js";
 import {
   buildMistralModelDefinition,
+  buildRdsecModelDefinition,
   buildZaiModelDefinition,
   buildMoonshotModelDefinition,
   buildXaiModelDefinition,
@@ -75,6 +76,9 @@ import {
   MOONSHOT_CN_BASE_URL,
   MOONSHOT_DEFAULT_MODEL_ID,
   MOONSHOT_DEFAULT_MODEL_REF,
+  RDSEC_BASE_URL,
+  RDSEC_DEFAULT_MODEL_ID,
+  RDSEC_DEFAULT_MODEL_REF,
   ZAI_DEFAULT_MODEL_ID,
   resolveZaiBaseUrl,
   XAI_BASE_URL,
@@ -572,4 +576,28 @@ export function applyQianfanProviderConfig(cfg: OpenClawConfig): OpenClawConfig 
 export function applyQianfanConfig(cfg: OpenClawConfig): OpenClawConfig {
   const next = applyQianfanProviderConfig(cfg);
   return applyAgentDefaultModelPrimary(next, QIANFAN_DEFAULT_MODEL_REF);
+}
+
+export function applyRdsecProviderConfig(cfg: OpenClawConfig): OpenClawConfig {
+  const models = { ...cfg.agents?.defaults?.models };
+  models[RDSEC_DEFAULT_MODEL_REF] = {
+    ...models[RDSEC_DEFAULT_MODEL_REF],
+    alias: models[RDSEC_DEFAULT_MODEL_REF]?.alias ?? "RDSEC",
+  };
+
+  const defaultModel = buildRdsecModelDefinition();
+
+  return applyProviderConfigWithDefaultModel(cfg, {
+    agentModels: models,
+    providerId: "rdsec",
+    api: "openai-completions",
+    baseUrl: RDSEC_BASE_URL,
+    defaultModel,
+    defaultModelId: RDSEC_DEFAULT_MODEL_ID,
+  });
+}
+
+export function applyRdsecConfig(cfg: OpenClawConfig): OpenClawConfig {
+  const next = applyRdsecProviderConfig(cfg);
+  return applyAgentDefaultModelPrimary(next, RDSEC_DEFAULT_MODEL_REF);
 }

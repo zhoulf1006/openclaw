@@ -169,6 +169,7 @@ export function registerOnboardCommand(program: Command) {
           xaiApiKey: opts.xaiApiKey as string | undefined,
           litellmApiKey: opts.litellmApiKey as string | undefined,
           volcengineApiKey: opts.volcengineApiKey as string | undefined,
+          rdsecApiKey: opts.rdsecApiKey as string | undefined,
           byteplusApiKey: opts.byteplusApiKey as string | undefined,
           customBaseUrl: opts.customBaseUrl as string | undefined,
           customApiKey: opts.customApiKey as string | undefined,

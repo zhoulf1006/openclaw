@@ -24,6 +24,8 @@ import {
   applyKilocodeProviderConfig,
   applyQianfanConfig,
   applyQianfanProviderConfig,
+  applyRdsecConfig,
+  applyRdsecProviderConfig,
   applyKimiCodeConfig,
   applyKimiCodeProviderConfig,
   applyLitellmConfig,
@@ -52,6 +54,7 @@ import {
   KILOCODE_DEFAULT_MODEL_REF,
   LITELLM_DEFAULT_MODEL_REF,
   QIANFAN_DEFAULT_MODEL_REF,
+  RDSEC_DEFAULT_MODEL_REF,
   KIMI_CODING_MODEL_REF,
   MOONSHOT_DEFAULT_MODEL_REF,
   MISTRAL_DEFAULT_MODEL_REF,
@@ -62,6 +65,7 @@ import {
   XIAOMI_DEFAULT_MODEL_REF,
   setCloudflareAiGatewayConfig,
   setQianfanApiKey,
+  setRdsecApiKey,
   setGeminiApiKey,
   setKilocodeApiKey,
   setLitellmApiKey,
@@ -100,6 +104,7 @@ const API_KEY_TOKEN_PROVIDER_AUTH_CHOICE: Record<string, AuthChoice> = {
   opencode: "opencode-zen",
   kilocode: "kilocode-api-key",
   qianfan: "qianfan-api-key",
+  rdsec: "rdsec-api-key",
 };
 
 const ZAI_AUTH_CHOICE_ENDPOINT: Partial<
@@ -294,6 +299,18 @@ const SIMPLE_API_KEY_PROVIDER_FLOWS: Partial<Record<AuthChoice, SimpleApiKeyProv
     applyDefaultConfig: applyKilocodeConfig,
     applyProviderConfig: applyKilocodeProviderConfig,
     noteDefault: KILOCODE_DEFAULT_MODEL_REF,
+  },
+  "rdsec-api-key": {
+    provider: "rdsec",
+    profileId: "rdsec:default",
+    expectedProviders: ["rdsec"],
+    envLabel: "RDSEC_API_KEY",
+    promptMessage: "Enter RDSEC (Trend Micro) API key",
+    setCredential: setRdsecApiKey,
+    defaultModel: RDSEC_DEFAULT_MODEL_REF,
+    applyDefaultConfig: applyRdsecConfig,
+    applyProviderConfig: applyRdsecProviderConfig,
+    noteDefault: RDSEC_DEFAULT_MODEL_REF,
   },
   "synthetic-api-key": {
     provider: "synthetic",
