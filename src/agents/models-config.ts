@@ -88,12 +88,20 @@ function mergeProviderModels(implicit: ProviderConfig, explicit: ProviderConfig)
       implicitValue: implicitModel.maxTokens,
     });
 
+    // Backfill compat flags from implicit when explicit entry does not define them,
+    // so provider-specific constraints (e.g. supportsStore: false) are not lost.
+    const compat =
+      "compat" in explicitModel
+        ? explicitModel.compat
+        : (implicitModel as { compat?: Record<string, unknown> }).compat;
+
     return {
       ...explicitModel,
       input: implicitModel.input,
       reasoning: "reasoning" in explicitModel ? explicitModel.reasoning : implicitModel.reasoning,
       ...(contextWindow === undefined ? {} : { contextWindow }),
       ...(maxTokens === undefined ? {} : { maxTokens }),
+      ...(compat != null ? { compat } : {}),
     };
   });
 
