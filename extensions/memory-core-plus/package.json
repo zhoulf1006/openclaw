@@ -1,0 +1,20 @@
+{
+  "name": "@openclaw/memory-core-plus",
+  "version": "2026.3.7",
+  "private": true,
+  "description": "Enhanced memory with auto-recall and auto-capture for workspace memory",
+  "type": "module",
+  "peerDependencies": {
+    "openclaw": ">=2026.3.2"
+  },
+  "peerDependenciesMeta": {
+    "openclaw": {
+      "optional": true
+    }
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}

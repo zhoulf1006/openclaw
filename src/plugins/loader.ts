@@ -150,6 +150,11 @@ const pluginSdkScopedAliasEntries = [
   { subpath: "mattermost", srcFile: "mattermost.ts", distFile: "mattermost.js" },
   { subpath: "memory-core", srcFile: "memory-core.ts", distFile: "memory-core.js" },
   {
+    subpath: "memory-core-plus",
+    srcFile: "memory-core-plus.ts",
+    distFile: "memory-core-plus.js",
+  },
+  {
     subpath: "memory-lancedb",
     srcFile: "memory-lancedb.ts",
     distFile: "memory-lancedb.js",
