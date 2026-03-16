@@ -1,0 +1,39 @@
+{
+  "id": "github-notify",
+  "configSchema": {
+    "type": "object",
+    "properties": {
+      "webhookPath": {
+        "type": "string",
+        "default": "/api/github-notify",
+        "description": "HTTP path for the GitHub webhook endpoint"
+      },
+      "webhookSecret": {
+        "type": "string",
+        "description": "GitHub webhook secret for HMAC-SHA256 signature verification"
+      },
+      "discordChannelId": {
+        "type": "string",
+        "description": "Discord channel ID to send PR summaries to"
+      },
+      "discordAccountId": {
+        "type": "string",
+        "description": "Discord account ID (if multiple Discord bots configured)"
+      },
+      "actions": {
+        "type": "array",
+        "items": { "type": "string" },
+        "default": ["opened", "reopened"],
+        "description": "GitHub PR actions to process (e.g. opened, reopened, closed)"
+      }
+    },
+    "required": ["webhookSecret", "discordChannelId"]
+  },
+  "uiHints": {
+    "webhookSecret": { "label": "GitHub Webhook Secret", "sensitive": true },
+    "discordChannelId": { "label": "Discord Channel ID" },
+    "discordAccountId": { "label": "Discord Account ID", "advanced": true },
+    "webhookPath": { "label": "Webhook Path", "advanced": true },
+    "actions": { "label": "PR Actions Filter", "advanced": true }
+  }
+}

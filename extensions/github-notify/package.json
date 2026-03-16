@@ -1,0 +1,15 @@
+{
+  "name": "@openclaw/github-notify",
+  "version": "0.1.0",
+  "private": true,
+  "description": "GitHub PR webhook notifications with AI summaries via Discord",
+  "type": "module",
+  "devDependencies": {
+    "openclaw": "workspace:*"
+  },
+  "openclaw": {
+    "extensions": [
+      "./index.ts"
+    ]
+  }
+}
